@@ -4,6 +4,7 @@ import com.oreilly.security.domain.entities.Appointment;
 import com.oreilly.security.domain.entities.AutoUser;
 import com.oreilly.security.domain.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,6 +59,13 @@ public class AppointmentController {
         Appointment appointment = appointmentRepository.findOne(appointmentId);
         model.addAttribute("appointment", appointment);
         return "appointment";
+    }
+
+    @ResponseBody
+    @RequestMapping("/confirm")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String confirm() {
+        return "confirm";
     }
 
 }
