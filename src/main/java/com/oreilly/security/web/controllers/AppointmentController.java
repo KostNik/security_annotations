@@ -6,6 +6,7 @@ import com.oreilly.security.domain.repositories.AppointmentRepository;
 import com.oreilly.security.domain.repositories.AppointmentUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.Authentication;
@@ -58,8 +59,9 @@ public class AppointmentController {
 
     @ResponseBody
     @RequestMapping("/all")
+    @PostFilter("principal.autoUserId == filterObject.user.autoUserId")
     public List<Appointment> getAppointments(Authentication auth) {
-        return this.appointmentRepository.findByUser((AutoUser) auth.getPrincipal());
+        return this.appointmentRepository.findAll();
     }
 
     @RequestMapping("/{appointmentId}")
