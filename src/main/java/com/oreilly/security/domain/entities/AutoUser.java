@@ -130,5 +130,11 @@ public class AutoUser implements UserDetails {
 		return true;
 	}
 
-	
+	public void setAutoUserId(Long autoUserId) {
+		this.autoUserId = autoUserId;
+	}
+
+	public Long getAutoUserId() {
+		return autoUserId;
+	}
 }

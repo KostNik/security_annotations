@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
-    List<Appointment> findbyUser(AutoUser user);
+    List<Appointment> findByUser(AutoUser user);
 
 }
