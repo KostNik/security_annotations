@@ -4,6 +4,7 @@ import com.oreilly.security.domain.entities.Appointment;
 import com.oreilly.security.domain.entities.AutoUser;
 import com.oreilly.security.domain.repositories.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 
@@ -50,11 +52,12 @@ public class AppointmentController {
 
     @ResponseBody
     @RequestMapping("/all")
-    public List<Appointment> getAppointments() {
-        return this.appointmentRepository.findAll();
+    public List<Appointment> getAppointments(Authentication auth) {
+        return this.appointmentRepository.findbyUser((AutoUser) auth.getPrincipal());
     }
 
     @RequestMapping("/{appointmentId}")
+    @PostAuthorize("principal.autoUserId== #model[appointment].user.uatoUserId")
     public String getAppointment(@PathVariable("appointmentId") Long appointmentId, Model model) {
         Appointment appointment = appointmentRepository.findOne(appointmentId);
         model.addAttribute("appointment", appointment);
@@ -66,6 +69,13 @@ public class AppointmentController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String confirm() {
         return "confirm";
+    }
+
+    @ResponseBody
+    @RequestMapping("/cancel")
+    @RolesAllowed("ROLE_ADMIN")
+    public String cancel() {
+        return "cancel";
     }
 
 }

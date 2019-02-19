@@ -111,5 +111,11 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>4.1.7.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>jsr250-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 	</dependencies>
 </project>
