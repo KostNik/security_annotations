@@ -15,7 +15,7 @@ import com.oreilly.security.domain.entities.Automobile;
 import com.oreilly.security.domain.repositories.AutoUserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath:application-context.xml")
+//@ContextConfiguration(locations="classpath:application-context.xml")
 public class AutoUserTest {
 
 	@Autowired

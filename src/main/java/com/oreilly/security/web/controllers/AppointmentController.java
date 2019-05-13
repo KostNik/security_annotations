@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,6 +40,12 @@ public class AppointmentController {
         return "appointments";
     }
 
+
+    @RequestMapping(value = "/secured", method = RequestMethod.GET)
+    public String getAppointmentSecuredPage(@RequestParam(required = false, name = "secured") String secured) {
+        return "appointments";
+    }
+
     @ResponseBody
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public List<Appointment> saveAppointment(@ModelAttribute Appointment appointment) {
@@ -65,7 +70,7 @@ public class AppointmentController {
     }
 
     @RequestMapping("/{appointmentId}")
-    @PostAuthorize("principal.autoUserId== #model[appointment].user.uatoUserId")
+    @PostAuthorize("principal.autoUserId== #model[appointment].user.autoUserId")
     public String getAppointment(@PathVariable("appointmentId") Long appointmentId, Model model) {
         Appointment appointment = appointmentRepository.findOne(appointmentId);
         model.addAttribute("appointment", appointment);

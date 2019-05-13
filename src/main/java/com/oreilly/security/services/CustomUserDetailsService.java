@@ -1,4 +1,4 @@
-package com.oreilly.security;
+package com.oreilly.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,9 +7,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.oreilly.security.domain.repositories.AutoUserRepository;
+import org.springframework.stereotype.Service;
 
 
-@Component("customUserDetailsService")
+@Service("customUserDetailsService")
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
